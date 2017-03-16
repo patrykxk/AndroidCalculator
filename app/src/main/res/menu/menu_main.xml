@@ -9,7 +9,8 @@
     <item android:title="@string/advanced"
         android:orderInCategory="101"
         android:id="@+id/Advanced" />
-    <item android:title="Item"
+    <item
+        android:id="@+id/About"
         android:orderInCategory="102"
-        android:id="@+id/About" />
+        android:title="About" />
 </menu>
