@@ -1,6 +1,8 @@
 package com.example.a194990.calculator;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -8,8 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
@@ -84,9 +84,19 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        switch(item.getItemId()){
+            case R.id.Advanced:
+                Intent intent = new Intent(this, AdvancedActivity.class);
+                this.startActivity(intent);
+                break;
+            case R.id.About:
+                Snackbar mySnackbar = Snackbar.make(findViewById(R.id.Simple), "S", 3);
+                mySnackbar.show();
+                break;
+        }
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.simple) {
+        if (id == R.id.Simple) {
             return true;
         }
 
