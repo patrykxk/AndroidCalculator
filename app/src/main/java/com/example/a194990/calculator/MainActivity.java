@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
-    private String onScreen = "";
+    private StringBuilder onScreen = new StringBuilder("");
     private String currentOperator = "";
 
     @Override
@@ -29,33 +29,40 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickNumber(View view){
         Button button = (Button)view;
-        onScreen += button.getText();
+        onScreen.append(button.getText());
         showOnScreen();
+    }
+
+    public void onClickComa(View view){
+        if(!onScreen.toString().contains(".")){
+            Button button = (Button)view;
+            onScreen.append(button.getText());
+            showOnScreen();
+        }
     }
 
     public void onClickOperator(View view){
         Button button = (Button)view;
-        onScreen += button.getText();
+        onScreen.append(button.getText());
         currentOperator = button.getText().toString();
         showOnScreen();
     }
+
+
     public void onClickEqual(View view){
         Button button = (Button)view;
-        String[] numbers = onScreen.split(Pattern.quote(currentOperator));
-        if(numbers.length<2) return;
-        onScreen = String.valueOf(calculate(numbers[0],numbers[1], currentOperator));
-
+        onScreen = new StringBuilder(new Expression(onScreen.toString()).eval().toString());
         showOnScreen();
     }
 
     public void onClickBackspace(View view){
-
-
-        onScreen = onScreen.substring(0, onScreen.length()-1);
-        showOnScreen();
+        if(onScreen.length()>0) {
+            onScreen = new StringBuilder(onScreen.substring(0, onScreen.length() - 1));
+            showOnScreen();
+        }
     }
     public void onClickClear(View view){
-        onScreen = "";
+        onScreen.delete(0,onScreen.length());
         currentOperator = "";
         showOnScreen();
     }
@@ -64,15 +71,6 @@ public class MainActivity extends AppCompatActivity {
         textView.setText(onScreen);
     }
 
-    private double calculate(String firstNumber, String secondNumber, String operator){
-        switch (operator){
-            case "+": return Double.valueOf(firstNumber) + Double.valueOf(secondNumber);
-            case "-": return Double.valueOf(firstNumber) - Double.valueOf(secondNumber);
-            case "*": return Double.valueOf(firstNumber) * Double.valueOf(secondNumber);
-            case "/": return Double.valueOf(firstNumber) / Double.valueOf(secondNumber);
-            default: return -1;
-        }
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
