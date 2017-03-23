@@ -104,7 +104,10 @@ public class AdvancedActivity extends AppCompatActivity {
                 startActivity(intent2);
                 break;
             case R.id.Exit:
-                System.exit(0);
+                Intent intentExit = new Intent(getApplicationContext(), SimpleActivity.class);
+                intentExit.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intentExit.putExtra("EXIT", true);
+                startActivity(intentExit);
                 break;
         }
 

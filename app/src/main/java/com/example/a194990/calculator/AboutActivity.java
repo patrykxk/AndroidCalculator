@@ -1,5 +1,6 @@
 package com.example.a194990.calculator;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,19 +33,23 @@ public class AboutActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.Advanced:
                 Toast.makeText(this, "ADVANCED!!",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, AdvancedActivity.class);
                 startActivity(intent);
                 break;
             case R.id.Simple:
                 Toast.makeText(this, "SIMPLE_ACC!!",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 Intent intent3 = new Intent(this, SimpleActivity.class);
                 startActivity(intent3);
                 break;
             case R.id.Exit:
-                System.exit(0);
+                Intent intentExit = new Intent(getApplicationContext(), SimpleActivity.class);
+                intentExit.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intentExit.putExtra("EXIT", true);
+                startActivity(intentExit);
                 break;
+
         }
 
         //noinspection SimplifiableIfStatement

@@ -26,6 +26,9 @@ public class SimpleActivity extends AppCompatActivity {
 
         textView = (TextView)findViewById(R.id.textView);
         textView.setText(onScreen);
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
+        }
     }
 
     public void onClickNumber(View view){
@@ -100,7 +103,7 @@ public class SimpleActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.Advanced:
                 Toast.makeText(this, "ADVANCED!!",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, AdvancedActivity.class);
                 startActivity(intent);
                 break;
@@ -109,7 +112,10 @@ public class SimpleActivity extends AppCompatActivity {
                 startActivity(intent2);
                 break;
             case R.id.Exit:
-                System.exit(0);
+                Intent intentExit = new Intent(getApplicationContext(), SimpleActivity.class);
+                intentExit.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intentExit.putExtra("EXIT", true);
+                startActivity(intentExit);
                 break;
         }
 
