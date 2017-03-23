@@ -63,7 +63,6 @@ public class AdvancedActivity extends AppCompatActivity {
             onScreen = new StringBuilder(new Expression(onScreen.toString()).eval().toString());
         }catch (Exception e){
             Toast.makeText(this, inputError,Toast.LENGTH_SHORT).show();
-            onScreen = new StringBuilder("");
         }
 
         showOnScreen();
