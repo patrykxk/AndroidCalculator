@@ -3,12 +3,14 @@ package com.example.a194990.calculator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import static com.example.a194990.calculator.R.string.inputError;
 
 public class AdvancedActivity extends AppCompatActivity {
     private TextView textView;
@@ -48,7 +50,7 @@ public class AdvancedActivity extends AppCompatActivity {
     }
     public void onClickSqrt(View view){
         Button button = (Button)view;
-        onScreen.append("SQRT");
+        onScreen.append("SQRT(");
         currentOperator = button.getText().toString();
         showOnScreen();
     }
@@ -56,7 +58,14 @@ public class AdvancedActivity extends AppCompatActivity {
 
     public void onClickEqual(View view){
         Button button = (Button)view;
-        onScreen = new StringBuilder(new Expression(onScreen.toString()).eval().toString());
+        String string;
+        try {
+            onScreen = new StringBuilder(new Expression(onScreen.toString()).eval().toString());
+        }catch (Exception e){
+            Toast.makeText(this, inputError,Toast.LENGTH_SHORT).show();
+            onScreen = new StringBuilder("");
+        }
+
         showOnScreen();
     }
 

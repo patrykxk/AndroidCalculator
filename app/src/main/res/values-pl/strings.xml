@@ -2,7 +2,9 @@
 <resources>
     <string name="app_name">Kalkulator</string>
     <string name="advanced">Zaawansowany</string>
+    <string name="about">O autorze</string>
     <string name="author">Autor: Patryk K.</string>
     <string name="exit">Wyjście</string>
     <string name="simple">Prosty</string>
+    <string name="inputError">Źle wprowadziłeś dane!</string>
 </resources>

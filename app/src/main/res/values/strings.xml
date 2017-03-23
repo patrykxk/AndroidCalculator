@@ -2,7 +2,8 @@
     <string name="app_name">Calculator</string>
     <string name="simple">Simple</string>
     <string name="advanced">Advanced</string>
-    <string name="about" translatable="false">About</string>
+    <string name="about">About</string>
     <string name="author">Author: Patryk K.</string>
     <string name="exit">Exit</string>
+    <string name="inputError">Input error!</string>
 </resources>
