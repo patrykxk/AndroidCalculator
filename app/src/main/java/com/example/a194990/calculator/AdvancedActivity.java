@@ -46,6 +46,12 @@ public class AdvancedActivity extends AppCompatActivity {
         currentOperator = button.getText().toString();
         showOnScreen();
     }
+    public void onClickSqrt(View view){
+        Button button = (Button)view;
+        onScreen.append("SQRT");
+        currentOperator = button.getText().toString();
+        showOnScreen();
+    }
 
 
     public void onClickEqual(View view){
