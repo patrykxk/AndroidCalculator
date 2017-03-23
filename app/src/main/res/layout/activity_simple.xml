@@ -7,13 +7,13 @@
         android:id="@+id/include"
         layout="@layout/activity_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="62dp" />
+        android:layout_height="66dp" />
 
 
-    <TextView
+    <com.example.a194990.calculator.AutoResizeTextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/include"

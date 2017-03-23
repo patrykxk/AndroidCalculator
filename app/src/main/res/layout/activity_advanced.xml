@@ -7,23 +7,26 @@
         android:id="@+id/include"
         layout="@layout/activity_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="62dp" />
+        android:layout_height="66dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 
 
-    <TextView
+    <com.example.a194990.calculator.AutoResizeTextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/include"
         android:background="@android:color/background_light"
         android:freezesText="true"
         android:gravity="bottom|right"
         android:maxLines="2"
         android:paddingTop="20dp"
         android:text="0"
-        android:textSize="60sp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/include" />
+        android:textSize="60sp" />
 
     <TableLayout
         android:layout_width="match_parent"
