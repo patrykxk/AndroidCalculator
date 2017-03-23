@@ -108,11 +108,8 @@ public class SimpleActivity extends AppCompatActivity {
                 Intent intent2 = new Intent(this, AboutActivity.class);
                 startActivity(intent2);
                 break;
-            case R.id.Simple:
-                Toast.makeText(this, "SIMPLE_ACC!!",
-                        Toast.LENGTH_LONG).show();
-                Intent intent3 = new Intent(this, SimpleActivity.class);
-                startActivity(intent3);
+            case R.id.Exit:
+                System.exit(0);
                 break;
         }
 

@@ -36,20 +36,19 @@ public class AboutActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, AdvancedActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.About:
-                Intent intent2 = new Intent(this, AboutActivity.class);
-                startActivity(intent2);
-                break;
             case R.id.Simple:
                 Toast.makeText(this, "SIMPLE_ACC!!",
                         Toast.LENGTH_LONG).show();
                 Intent intent3 = new Intent(this, SimpleActivity.class);
                 startActivity(intent3);
                 break;
+            case R.id.Exit:
+                System.exit(0);
+                break;
         }
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.Simple) {
+        if (id == R.id.About) {
             return true;
         }
 

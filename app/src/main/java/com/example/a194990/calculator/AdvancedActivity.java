@@ -103,10 +103,13 @@ public class AdvancedActivity extends AppCompatActivity {
                 Intent intent2 = new Intent(this, AboutActivity.class);
                 startActivity(intent2);
                 break;
+            case R.id.Exit:
+                System.exit(0);
+                break;
         }
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.Simple) {
+        if (id == R.id.Advanced) {
             return true;
         }
 

@@ -13,5 +13,9 @@
     <item
         android:id="@+id/About"
         android:orderInCategory="102"
-        android:title="About" />
+        android:title="@string/about" />
+    <item
+        android:id="@+id/Exit"
+        android:orderInCategory="103"
+        android:title="@string/exit" />
 </menu>
