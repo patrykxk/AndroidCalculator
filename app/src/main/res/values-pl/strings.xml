@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [
+    <!ENTITY authorName "Patryk K.">
+    ]>
 <resources>
     <string name="app_name">Kalkulator</string>
     <string name="advanced">Zaawansowany</string>
     <string name="about">O autorze</string>
-    <string name="author">Autor: Patryk K.</string>
     <string name="exit">Wyjście</string>
     <string name="simple">Prosty</string>
     <string name="inputError">Źle wprowadziłeś dane!</string>
+    <string name="author">Autor: &authorName;</string>
+    <string name="projectDescription">Projekt akademicki</string>
+    <string name="contact">Kontakt na Github: patrykxk</string>
 </resources>
