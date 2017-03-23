@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.a194990.calculator.MainActivity">
+    tools:context="com.example.a194990.calculator.SimpleActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -16,15 +16,13 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="?attr/colorButtonNormal"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimaryDark"
             android:clickable="false"
             android:elevation="@null"
             android:theme="@style/AlertDialog.AppCompat"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/simple" />
 
 </android.support.design.widget.CoordinatorLayout>

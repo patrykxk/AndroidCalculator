@@ -10,8 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class SimpleActivity extends AppCompatActivity {
     private TextView textView;
     private StringBuilder onScreen = new StringBuilder("");
     private String currentOperator = "";
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_simple);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -79,6 +80,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        onScreen = new StringBuilder(savedInstanceState.getString("onScreen"));
+        showOnScreen();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("onScreen", onScreen.toString());
+        super.onSaveInstanceState(outState);
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -86,12 +99,20 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch(item.getItemId()){
             case R.id.Advanced:
+                Toast.makeText(this, "ADVANCED!!",
+                        Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, AdvancedActivity.class);
-                this.startActivity(intent);
+                startActivity(intent);
                 break;
             case R.id.About:
-                Snackbar mySnackbar = Snackbar.make(findViewById(R.id.Simple), "S", 3);
-                mySnackbar.show();
+                Intent intent2 = new Intent(this, AboutActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.Simple:
+                Toast.makeText(this, "SIMPLE_ACC!!",
+                        Toast.LENGTH_LONG).show();
+                Intent intent3 = new Intent(this, SimpleActivity.class);
+                startActivity(intent3);
                 break;
         }
 

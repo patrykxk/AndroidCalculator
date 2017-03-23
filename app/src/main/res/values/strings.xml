@@ -3,4 +3,5 @@
     <string name="simple">Simple</string>
     <string name="advanced">Advanced</string>
     <string name="about">About</string>
+    <string name="author">Author: Patryk K.</string>
 </resources>

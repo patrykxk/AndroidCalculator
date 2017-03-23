@@ -2,7 +2,6 @@ package com.example.a194990.calculator;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -19,9 +18,9 @@ public class AdvancedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.advanced);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_advanced);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         textView = (TextView)findViewById(R.id.textView);
         textView.setText(onScreen);
@@ -77,7 +76,18 @@ public class AdvancedActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        onScreen = new StringBuilder(savedInstanceState.getString("onScreen"));
+        //showOnScreen();
+    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("onScreen", onScreen.toString());
+        super.onSaveInstanceState(outState);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -86,12 +96,12 @@ public class AdvancedActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch(item.getItemId()){
             case R.id.Simple:
-                Intent intent = new Intent(this, MainActivity.class);
-                this.startActivity(intent);
+                Intent intent = new Intent(this, SimpleActivity.class);
+                startActivity(intent);
                 break;
             case R.id.About:
-                Snackbar mySnackbar = Snackbar.make(findViewById(R.id.Simple), "S", Snackbar.LENGTH_SHORT);
-                mySnackbar.show();
+                Intent intent2 = new Intent(this, AboutActivity.class);
+                startActivity(intent2);
                 break;
         }
 
