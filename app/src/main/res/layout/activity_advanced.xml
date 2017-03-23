@@ -152,7 +152,7 @@
                 android:layout_weight="1"
                 android:background="@color/colorOperators"
                 android:onClick="onClickNumber"
-                android:text="ln"
+                android:text="log"
                 android:textColor="@android:color/background_light"
                 android:textSize="25sp"
                 tools:textAllCaps="false" />
