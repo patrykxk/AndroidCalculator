@@ -32,14 +32,10 @@ public class AboutActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch(item.getItemId()){
             case R.id.Advanced:
-                Toast.makeText(this, "ADVANCED!!",
-                        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, AdvancedActivity.class);
                 startActivity(intent);
                 break;
             case R.id.Simple:
-                Toast.makeText(this, "SIMPLE_ACC!!",
-                        Toast.LENGTH_SHORT).show();
                 Intent intent3 = new Intent(this, SimpleActivity.class);
                 startActivity(intent3);
                 break;

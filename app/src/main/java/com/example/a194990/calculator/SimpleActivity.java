@@ -102,8 +102,6 @@ public class SimpleActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch(item.getItemId()){
             case R.id.Advanced:
-                Toast.makeText(this, "ADVANCED!!",
-                        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, AdvancedActivity.class);
                 startActivity(intent);
                 break;
@@ -118,7 +116,6 @@ public class SimpleActivity extends AppCompatActivity {
                 startActivity(intentExit);
                 break;
         }
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.Simple) {
             return true;
