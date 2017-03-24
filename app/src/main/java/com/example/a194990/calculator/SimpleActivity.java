@@ -17,7 +17,11 @@ public class SimpleActivity extends AppCompatActivity {
     private TextView textView;
     private StringBuilder onScreen = new StringBuilder("");
     private String currentOperator = "";
-    private boolean isComaAble = true;
+    private boolean isCommaAble = true;
+
+    public void setIsComaAble(boolean isComaOnScreen) {
+        this.isCommaAble = isComaOnScreen;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +43,8 @@ public class SimpleActivity extends AppCompatActivity {
         showOnScreen();
     }
 
-    public void onClickComa(View view){
-        if(isComaAble){
+    public void onClickComma(View view){
+        if(isCommaAble){
             Button button = (Button)view;
             onScreen.append(button.getText());
             showOnScreen();
@@ -101,14 +105,14 @@ public class SimpleActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         onScreen = new StringBuilder(savedInstanceState.getString("onScreen"));
-        isComaAble = savedInstanceState.getBoolean("isComaAble");
+        isCommaAble = savedInstanceState.getBoolean("isCommaAble");
         showOnScreen();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putString("onScreen", onScreen.toString());
-        outState.putBoolean("isComaAble", isComaAble);
+        outState.putBoolean("isCommaAble", isCommaAble);
         super.onSaveInstanceState(outState);
     }
     @Override
@@ -141,7 +145,5 @@ public class SimpleActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setIsComaAble(boolean isComaOnScreen) {
-        this.isComaAble = isComaOnScreen;
-    }
+
 }
