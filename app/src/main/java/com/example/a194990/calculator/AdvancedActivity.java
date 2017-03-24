@@ -33,7 +33,7 @@ public class AdvancedActivity extends AppCompatActivity {
         showOnScreen();
     }
 
-    public void onClickComa(View view){
+    public void onClickComma(View view){
         if(isCommaAble) {
             Button button = (Button) view;
             onScreen.append(button.getText());
