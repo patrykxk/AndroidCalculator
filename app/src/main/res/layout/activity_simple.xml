@@ -21,7 +21,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/include"
         android:orientation="vertical"
-        android:weightSum="7">
+        android:weightSum="8">
 
         <com.example.a194990.calculator.AutoResizeTextView
             android:id="@+id/textView"
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_below="@+id/textView"
-            android:layout_weight="5"
+            android:layout_weight="6"
             android:baselineAligned="false">
 
             <TableRow
