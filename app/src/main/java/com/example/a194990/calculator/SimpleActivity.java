@@ -2,7 +2,6 @@ package com.example.a194990.calculator;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,10 +11,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.example.a194990.calculator.R.string.inputError;
+
 public class SimpleActivity extends AppCompatActivity {
     private TextView textView;
     private StringBuilder onScreen = new StringBuilder("");
     private String currentOperator = "";
+    private boolean isComaAble = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +40,11 @@ public class SimpleActivity extends AppCompatActivity {
     }
 
     public void onClickComa(View view){
-        if(!onScreen.toString().contains(".")){
+        if(isComaAble){
             Button button = (Button)view;
             onScreen.append(button.getText());
             showOnScreen();
+            setIsComaAble(false);
         }
     }
 
@@ -50,17 +53,28 @@ public class SimpleActivity extends AppCompatActivity {
         onScreen.append(button.getText());
         currentOperator = button.getText().toString();
         showOnScreen();
+        setIsComaAble(true);
     }
 
 
     public void onClickEqual(View view){
-        Button button = (Button)view;
-        onScreen = new StringBuilder(new Expression(onScreen.toString()).eval().toString());
+        try {
+            onScreen = new StringBuilder(new Expression(onScreen.toString()).eval().toString());
+        }catch (Exception e){
+            Toast.makeText(this, inputError,Toast.LENGTH_SHORT).show();
+        }
         showOnScreen();
     }
 
     public void onClickBackspace(View view){
         if(onScreen.length()>0) {
+            String string = onScreen.toString();
+            char lastChar = string.charAt(string.length()-1);
+            if(lastChar=='.'){
+                setIsComaAble(true);
+            }else if(string.contains(".")&&(lastChar=='+'||lastChar=='-'||lastChar=='/'||lastChar=='*'||lastChar=='^')){
+                setIsComaAble(false);
+            }
             onScreen = new StringBuilder(onScreen.substring(0, onScreen.length() - 1));
             showOnScreen();
         }
@@ -69,6 +83,7 @@ public class SimpleActivity extends AppCompatActivity {
         onScreen.delete(0,onScreen.length());
         currentOperator = "";
         showOnScreen();
+        setIsComaAble(true);
     }
 
     public void showOnScreen(){
@@ -86,12 +101,14 @@ public class SimpleActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         onScreen = new StringBuilder(savedInstanceState.getString("onScreen"));
+        isComaAble = savedInstanceState.getBoolean("isComaAble");
         showOnScreen();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putString("onScreen", onScreen.toString());
+        outState.putBoolean("isComaAble", isComaAble);
         super.onSaveInstanceState(outState);
     }
     @Override
@@ -122,5 +139,9 @@ public class SimpleActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setIsComaAble(boolean isComaOnScreen) {
+        this.isComaAble = isComaOnScreen;
     }
 }

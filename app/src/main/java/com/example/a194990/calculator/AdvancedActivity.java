@@ -1,6 +1,7 @@
 package com.example.a194990.calculator;
 
 import android.content.Intent;
+import android.icu.text.DateFormat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -16,13 +17,12 @@ public class AdvancedActivity extends AppCompatActivity {
     private TextView textView;
     private StringBuilder onScreen = new StringBuilder("");
     private String currentOperator = "";
+    private Boolean isComaAble = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
         textView = (TextView)findViewById(R.id.textView);
         textView.setText(onScreen);
@@ -35,16 +35,24 @@ public class AdvancedActivity extends AppCompatActivity {
     }
 
     public void onClickComa(View view){
-        if(!onScreen.toString().contains(".")){
-            Button button = (Button)view;
+        if(isComaAble) {
+            Button button = (Button) view;
             onScreen.append(button.getText());
             showOnScreen();
+            setIsComaAble(false);
         }
     }
 
     public void onClickOperator(View view){
         Button button = (Button)view;
         onScreen.append(button.getText());
+        currentOperator = button.getText().toString();
+        setIsComaAble(true);
+        showOnScreen();
+    }
+    public void onClickTrigonometryOrLog(View view){
+        Button button = (Button)view;
+        onScreen.append(button.getText()+"(");
         currentOperator = button.getText().toString();
         showOnScreen();
     }
@@ -55,21 +63,45 @@ public class AdvancedActivity extends AppCompatActivity {
         showOnScreen();
     }
 
-
+    public StringBuilder checkBracketsEqality(StringBuilder stringBuilder){
+        String string = stringBuilder.toString();
+        int numberOfOpeningBrackets = 0;
+        int numberOfClosingBrackets = 0;
+        for(int i =0; i<string.length();i++){
+            if(string.charAt(i)=='('){
+                numberOfOpeningBrackets++;
+            }else if(string.charAt(i)==')'){
+                numberOfClosingBrackets++;
+            }
+        }
+        int diff = numberOfOpeningBrackets-numberOfClosingBrackets;
+        if(diff>0){
+            while(diff>0){
+                stringBuilder.append(")");
+                diff--;
+            }
+        }
+        return stringBuilder;
+    }
     public void onClickEqual(View view){
-        Button button = (Button)view;
-        String string;
+        onScreen = checkBracketsEqality(onScreen);
         try {
             onScreen = new StringBuilder(new Expression(onScreen.toString()).eval().toString());
         }catch (Exception e){
             Toast.makeText(this, inputError,Toast.LENGTH_SHORT).show();
         }
-
         showOnScreen();
     }
 
     public void onClickBackspace(View view){
         if(onScreen.length()>0) {
+            String string = onScreen.toString();
+            char lastChar = string.charAt(string.length()-1);
+            if(lastChar=='.'){
+                setIsComaAble(true);
+            }else if(string.contains(".")&&(lastChar=='+'||lastChar=='-'||lastChar=='/'||lastChar=='*')){
+                setIsComaAble(false);
+            }
             onScreen = new StringBuilder(onScreen.substring(0, onScreen.length() - 1));
             showOnScreen();
         }
@@ -78,6 +110,7 @@ public class AdvancedActivity extends AppCompatActivity {
         onScreen.delete(0,onScreen.length());
         currentOperator = "";
         showOnScreen();
+        setIsComaAble(true);
     }
 
     public void showOnScreen(){
@@ -94,12 +127,14 @@ public class AdvancedActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         onScreen = new StringBuilder(savedInstanceState.getString("onScreen"));
+        isComaAble = savedInstanceState.getBoolean("isComaAble");
         //showOnScreen();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putString("onScreen", onScreen.toString());
+        outState.putBoolean("isComaAble", isComaAble);
         super.onSaveInstanceState(outState);
     }
     @Override
@@ -131,5 +166,9 @@ public class AdvancedActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setIsComaAble(boolean isComaAble) {
+        this.isComaAble = isComaAble;
     }
 }
