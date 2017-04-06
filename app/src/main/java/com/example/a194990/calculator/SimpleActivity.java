@@ -12,11 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static com.example.a194990.calculator.R.string.inputError;
+import static com.example.a194990.calculator.R.string.maxNumbers;
 
 public class SimpleActivity extends AppCompatActivity {
-    private TextView textView;
+    private AutoResizeTextView textView;
     private StringBuilder onScreen = new StringBuilder("");
-    private String currentOperator = "";
     private boolean isCommaAble = true;
 
     public void setIsComaAble(boolean isComaOnScreen) {
@@ -30,7 +30,7 @@ public class SimpleActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        textView = (TextView)findViewById(R.id.textView);
+        textView = (AutoResizeTextView)findViewById(R.id.textView);
         textView.setText(onScreen);
         if (getIntent().getBooleanExtra("EXIT", false)) {
             finish();
@@ -39,25 +39,25 @@ public class SimpleActivity extends AppCompatActivity {
 
     public void onClickNumber(View view){
         Button button = (Button)view;
-        onScreen.append(button.getText());
-        showOnScreen();
+        appendOnScreen(button.getText());
     }
 
     public void onClickComma(View view){
         if(isCommaAble){
             Button button = (Button)view;
-            onScreen.append(button.getText());
-            showOnScreen();
-            setIsComaAble(false);
+            if(appendOnScreen(button.getText()))
+                setIsComaAble(false);
         }
     }
 
-    public void onClickOperator(View view){
-        Button button = (Button)view;
-        onScreen.append(button.getText());
-        currentOperator = button.getText().toString();
-        showOnScreen();
-        setIsComaAble(true);
+    public void onClickOperator(View view) {
+        Button button = (Button) view;
+        char lastChar = onScreen.charAt(onScreen.length() - 1);
+        if (lastChar == '+' || lastChar == '-' || lastChar == '*' || lastChar == '/'){
+            return;
+        }
+        if(appendOnScreen(button.getText()))
+            setIsComaAble(true);
     }
 
 
@@ -85,7 +85,6 @@ public class SimpleActivity extends AppCompatActivity {
     }
     public void onClickClear(View view){
         onScreen.delete(0,onScreen.length());
-        currentOperator = "";
         showOnScreen();
         setIsComaAble(true);
     }
@@ -94,6 +93,16 @@ public class SimpleActivity extends AppCompatActivity {
         textView.setText(onScreen);
     }
 
+    public boolean appendOnScreen(CharSequence cs){
+        if(onScreen.length()<60) {
+            onScreen.append(cs);
+            showOnScreen();
+            return true;
+        }else{
+            Toast.makeText(this, maxNumbers,Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

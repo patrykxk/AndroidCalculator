@@ -13,4 +13,5 @@
     <string name="author">Author: &authorName;</string>
     <string name="projectDescription">Student project</string>
     <string name="contact">Contact on Github: patrykxk</string>
+    <string name="maxNumbers">Maximum length has been reached!</string>
 </resources>

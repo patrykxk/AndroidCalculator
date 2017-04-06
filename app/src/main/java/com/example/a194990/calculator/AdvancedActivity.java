@@ -11,11 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static com.example.a194990.calculator.R.string.inputError;
+import static com.example.a194990.calculator.R.string.maxNumbers;
 
 public class AdvancedActivity extends AppCompatActivity {
     private TextView textView;
     private StringBuilder onScreen = new StringBuilder("");
-    private String currentOperator = "";
     private Boolean isCommaAble = true;
 
     @Override
@@ -29,37 +29,40 @@ public class AdvancedActivity extends AppCompatActivity {
 
     public void onClickNumber(View view){
         Button button = (Button)view;
-        onScreen.append(button.getText());
-        showOnScreen();
+        appendOnScreen(button.getText());
     }
 
     public void onClickComma(View view){
         if(isCommaAble) {
             Button button = (Button) view;
-            onScreen.append(button.getText());
-            showOnScreen();
-            setIsCommaAble(false);
+            if(appendOnScreen(button.getText()))
+                setIsCommaAble(false);
         }
     }
 
     public void onClickOperator(View view){
         Button button = (Button)view;
-        onScreen.append(button.getText());
-        currentOperator = button.getText().toString();
-        setIsCommaAble(true);
-        showOnScreen();
+        char lastChar = onScreen.charAt(onScreen.length() - 1);
+        if (lastChar == '+' || lastChar == '-' || lastChar == '*' || lastChar == '/' || lastChar=='^'){
+            return;
+        }
+        if(appendOnScreen(button.getText()))
+            setIsCommaAble(true);
+
+    }
+    public void onClickBracket(View view){
+        Button button = (Button)view;
+        appendOnScreen(button.getText());
     }
     public void onClickTrigonometryOrLog(View view){
         Button button = (Button)view;
-        onScreen.append(button.getText()+"(");
-        currentOperator = button.getText().toString();
-        showOnScreen();
+        appendOnScreen(button.getText()+"(");
+
     }
     public void onClickSqrt(View view){
         Button button = (Button)view;
-        onScreen.append("SQRT(");
-        currentOperator = button.getText().toString();
-        showOnScreen();
+        appendOnScreen("SQRT(");
+
     }
 
     public StringBuilder checkBracketsEqality(StringBuilder stringBuilder){
@@ -107,7 +110,6 @@ public class AdvancedActivity extends AppCompatActivity {
     }
     public void onClickClear(View view){
         onScreen.delete(0,onScreen.length());
-        currentOperator = "";
         showOnScreen();
         setIsCommaAble(true);
     }
@@ -115,7 +117,16 @@ public class AdvancedActivity extends AppCompatActivity {
     public void showOnScreen(){
         textView.setText(onScreen);
     }
-
+    public boolean appendOnScreen(CharSequence cs){
+        if(onScreen.length()<60) {
+            onScreen.append(cs);
+            showOnScreen();
+            return true;
+        }else{
+            Toast.makeText(this, maxNumbers,Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

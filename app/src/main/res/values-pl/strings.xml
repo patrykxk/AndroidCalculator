@@ -12,4 +12,5 @@
     <string name="author">Autor: &authorName;</string>
     <string name="projectDescription">Projekt akademicki</string>
     <string name="contact">Kontakt na Github: patrykxk</string>
+    <string name="maxNumbers">Osiągnięto maksymalną długość działania!</string>
 </resources>
